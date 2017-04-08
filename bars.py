@@ -1,7 +1,10 @@
 import json
 import math
+import os
 
 def load_data(filepath):
+    if not os.path.exists(filepath):
+        return None
     with open(filepath, encoding='windows-1251') as data_file:
         return json.load(data_file)
 
@@ -10,12 +13,12 @@ def load_data(filepath):
 
 def get_biggest_bar(data):
     dict_bar = max(data, key=lambda item: item['SeatsCount'])
-    return dict_bar['SeatsCount']
+    return dict_bar
 
 
 def get_smallest_bar(data):
     dict_bar = min(data, key=lambda item: item['SeatsCount'])
-    return dict_bar['SeatsCount']
+    return dict_bar
 
 
 def get_closest_bar(data, longitude, latitude):
