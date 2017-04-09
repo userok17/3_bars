@@ -24,7 +24,7 @@ def distance(item, longitude, latitude):
     
 
 def get_closest_bar(data, longitude, latitude):
-    return min(data, key=lambda item: distance(item, longitube, latitude))
+    return min(data, key=lambda item: distance(item, longitude, latitude))
 
 
 
