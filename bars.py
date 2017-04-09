@@ -11,13 +11,13 @@ def load_data(filepath):
 
     
 
-def get_biggest_bar(data):
-    dict_bar = max(data, key=lambda item: item['SeatsCount'])
+def get_biggest_bar(json_data):
+    dict_bar = max(json_data, key=lambda item: item['SeatsCount'])
     return dict_bar
 
 
-def get_smallest_bar(data):
-    dict_bar = min(data, key=lambda item: item['SeatsCount'])
+def get_smallest_bar(json_data):
+    dict_bar = min(json_data, key=lambda item: item['SeatsCount'])
     return dict_bar
 
 
@@ -26,7 +26,7 @@ def get_closest_bar(data, longitude, latitude):
 
 
 if __name__ == '__main__':
-    data = load_data('data-2897-2016-11-23.json')
-    print(get_biggest_bar(data))
-    print(get_smallest_bar(data))
-    print(get_closest_bar(data, 37.6215879462381080, 55.7653669567739740))
+    json_data = load_data('data-2897-2016-11-23.json')
+    print(get_biggest_bar(json_data))
+    print(get_smallest_bar(json_data))
+    print(get_closest_bar(json_data, 37.6215879462381080, 55.7653669567739740))
