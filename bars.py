@@ -2,7 +2,6 @@ import json
 import math
 import os
 import sys
-from pprint import pprint
 
 
 def load_data(filepath):
