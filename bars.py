@@ -56,7 +56,7 @@ def main():
     
     if not json_data:
         print('Ошибка: Путь до json файла указан не правильно.')
-        sys.exit(0)
+        sys.exit(1)
     
     longitude = ask(question='Введите долготу c gps-координаты: ', type_value=float)
     latitude = ask(question='Введите широту c gps-координаты: ', type_value=float)
