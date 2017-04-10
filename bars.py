@@ -1,6 +1,9 @@
 import json
 import math
 import os
+import sys
+from pprint import pprint
+
 
 def load_data(filepath):
     if not os.path.exists(filepath):
@@ -24,16 +27,65 @@ def distance(item, longitude, latitude):
     
 
 def get_closest_bar(data, longitude, latitude):
+    ''' Самый ближайший бар '''
     return min(data, key=lambda item: distance(item, longitude, latitude))
 
 
+def ask_json_data(question):
+    ''' Спросить путь до файла и вернуть json данные '''
+    answer = None
+    while True:
+        answer = input(question)
+        if answer == 'q':
+            sys.exit(0)
+        json_data = load_data(answer)
+        if json_data:
+            return json_data
+        else:
+            print('Путь до json файла указан не правильно. Попробуйте ввести снова.')
+
+def ask_coordinate(question):
+    ''' Спросить координаты '''
+    while True:
+        answer = input(question)
+        if answer == 'q':
+            sys.exit(0)
+        try:
+            answer = float(answer)
+        except ValueError:
+            print('Неправильно указано значение координата. Попробуйте заново.')
+        else:
+            return answer
+    
+
+def print_bar(json_data):
+        ''' Вывести информацию о баре '''
+        print('Название бара: {}'.format(json_data['Name']))
+        print('Адрес: {}'.format(json_data['Address']))
+        print('Количество мест: {}'.format(json_data['SeatsCount']))
+        print()
+    
+def main():
+    print('Программа Бары!\n')
+    
+    json_data = ask_json_data('Введите путь до json файла или "q" для выхода из программы: ')
+    
+    longitude = ask_coordinate('Введите долготу c gps-координаты или "q" для выхода из программы: ')
+    latitude = ask_coordinate('Введите широту c gps-координаты или "q" для выхода из программы: ')
+    print()
+    
+    print('Самый маленький бар:')
+    the_smallest_bar = get_smallest_bar(json_data)
+    print_bar(the_smallest_bar)
+
+    print('Самый большой бар:')
+    the_biggest_bar = get_biggest_bar(json_data)
+    print_bar(the_biggest_bar)
+
+    print('Самый ближайший бар:')
+    the_closest_bar = get_closest_bar(json_data, longitude, latitude)    
+    print_bar(the_closest_bar)
 
 if __name__ == '__main__':
-    json_data = load_data('data-2897-2016-11-23.json')
-    print(get_biggest_bar(json_data))
-    print(get_smallest_bar(json_data))
-
-    longitude = 37.6215879462381080
-    latitude = 55.7653669567739740
+    main()
     
-    print(get_closest_bar(data=json_data, longitude=longitude, latitude=latitude))
